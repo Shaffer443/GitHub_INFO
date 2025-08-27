@@ -40,4 +40,45 @@ Se você quer que **um arquivo ou pasta não suba pro repositório**, você prec
 * Adiciona no `.gitignore` antes de dar commit → Git nunca vai rastrear.
 * Se já comitou → precisa tirar do tracking com `git rm --cached`.
 
-Quer que eu te mostre um **modelo de `.gitignore` pronto** para projetos comuns (Python, Node, etc.) ou prefere só um exemplo básico?
+---
+
+Aí tá o detalhe 👀: o `teste.py` **já estava sendo rastreado pelo Git** antes de você colocar no `.gitignore`.
+O `.gitignore` só vale para arquivos **novos ou não rastreados**.
+
+Então, se o `teste.py` já tinha ido num commit anterior, ele vai continuar indo, a não ser que você **tire ele do controle de versão**.
+
+### Como resolver:
+
+1. Remover do controle de versão, mas manter no seu disco:
+
+   ```bash
+   git rm --cached teste.py
+   ```
+
+2. Fazer o commit dessa alteração:
+
+   ```bash
+   git commit -m "Removendo teste.py do versionamento"
+   ```
+
+3. Subir para o GitHub:
+
+   ```bash
+   git push
+   ```
+
+Agora sim, o Git vai parar de acompanhar o `teste.py`, e como ele já está listado no `.gitignore`, nunca mais vai subir de novo.
+
+---
+
+⚡ Dica rápida: se quiser “zerar” o que o Git está rastreando para respeitar o `.gitignore` todo de uma vez:
+
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Aplicando .gitignore corretamente"
+git push
+```
+
+Quer que eu te monte esse comando mais “seguro”, só pra ele afetar **somente o `teste.py`** e não mexer em outros arquivos?
+
